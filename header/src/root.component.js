@@ -10,6 +10,8 @@ export default function Root(props) {
     <Link to={"app1"}>app 1</Link>
     <br />
     <Link to={"app2"}>app 2</Link>
+    <br />
+    <Link to={"vitya"}>vitya</Link>
     </BrowserRouter>
   </>;
 }
