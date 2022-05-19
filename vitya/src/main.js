@@ -24,6 +24,9 @@ const vueLifecycles = singleSpaVue({
     // app.use(router);
   }
 });
-export const bootstrap = vueLifecycles.bootstrap;
-export const mount = vueLifecycles.mount;
-export const unmount = vueLifecycles.unmount;
+
+export let prom = new Promise(r => setTimeout(() => { r(vueLifecycles) }, 5000));
+
+//export const bootstrap = vueLifecycles.bootstrap;
+//export const mount = vueLifecycles.mount;
+//export const unmount = vueLifecycles.unmount;

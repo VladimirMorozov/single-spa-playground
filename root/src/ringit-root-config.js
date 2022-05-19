@@ -6,22 +6,29 @@ import {
 } from "single-spa-layout";
 import microfrontendLayout from "./microfrontend-layout.html";
 
+const localEsApps = ['@ringit/vitya'];
+const useLocalEs = true;
+
 const routes = constructRoutes(microfrontendLayout);
 const applications = constructApplications({
   routes,
   loadApp({ name }) {
-    if (name === '@ringit/vitya') {
+    if (useLocalEs && localEsApps.includes(name)) {
       
       return import(
         /* webpackIgnore: true */
-        'http://localhost:3000/src/main.js'
-      );
+        name
+      ).then(pp => pp.prom);
     } else {
       let pendingApp = System.import(name);
-      pendingApp.then(loadedApp => {
+      return pendingApp.then(loadedApp => {
         console.log(name, loadedApp, loadedApp.default ? loadedApp.default() : null)
+        if (loadedApp.prom) {
+          return loadedApp.prom;
+        } else {
+          return loadedApp;
+        }
       });
-      return pendingApp;
     }
 
   },

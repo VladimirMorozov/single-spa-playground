@@ -11,7 +11,7 @@
     This is needed by babel to share largeish helper code for compiling async/await in older
     browsers. More information at https://github.com/single-spa/create-single-spa/issues/112
   -->
-  <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime@0.13.7/runtime.min.js"></script>
+  <script src="/regenerator-runtime.min.js"></script>
 
   <!--
     This CSP allows any SSL-enabled host and for arbitrary eval(), but you should limit these directives further to increase your app's security.
@@ -23,6 +23,7 @@
   <!-- More info at https://github.com/joeldenning/import-map-overrides/blob/master/docs/configuration.md#domain-list -->
   <!-- <meta name="import-map-overrides-domains" content="denylist:prod.example.com" /> -->
 
+  <!-- It seems this can just be removed? this is not an external in projects anyway -Vova -->
   <!-- Shared dependencies go into this import map. Your shared dependencies must be of one of the following formats:
 
     1. System.register (preferred when possible) - https://github.com/systemjs/systemjs/blob/master/docs/system-register.md
@@ -31,14 +32,14 @@
 
     More information about shared dependencies can be found at https://single-spa.js.org/docs/recommended-setup#sharing-with-import-maps.
   -->
-  <script type="systemjs-importmap">
+  <!-- <script type="systemjs-importmap">
     {
       "imports": {
         "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js"
       }
     }
   </script>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script"> -->
 
   <!-- Add your organization's prod import map URL to this script's src  -->
   <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
@@ -51,7 +52,16 @@
         "@ringit/app1": "//localhost:8088/ringit-app1.js",
         "@ringit/app2": "//localhost:8087/ringit-app2.js",
         "@ringit/header": "//localhost:8089/ringit-header.js",
-        "@ringit/vitya": "//localhost:3002/assets/index.7d5cc46d.js"
+        "@ringit/vitya": "//localhost:3000/main.js"
+      }
+    }
+  </script>
+
+  <!-- For es module apps in development use native browser importmaps -Vova -->
+  <script type="importmap">
+    {
+      "imports": {
+        "@ringit/vitya": "//localhost:3000/src/main.js"
       }
     }
   </script>
@@ -63,13 +73,14 @@
   -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/zone.js@0.11.3/dist/zone.min.js"></script> -->
 
+  <!-- this isn't useful in prod for an end user -Vova -->
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@2.2.0/dist/import-map-overrides.js"></script>
   <% if (isLocal) { %>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.js"></script>
   <% } else { %>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
+  <script src="/system.min.js"></script>
+  <script src="/system-amd.min.js"></script>
   <% } %>
 
 </head>
