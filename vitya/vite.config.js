@@ -4,9 +4,9 @@ export default {
   build: {
     minify: false,
     rollupOptions: {
-      input: 'src/main.js',
+      // input: 'src/main.js',
       output: {
-        format: 'system',
+        // format: 'system',
         assetFileNames: "assets/[name][extname]",
         entryFileNames: "[name].js"
       },
@@ -16,9 +16,9 @@ export default {
   base: 'http://localhost:3000',
   plugins: [vue({
     template: {
-      // transformAssetUrls: {
-      //   base: '/src'
-      // }
+      transformAssetUrls: {
+        base: '/src'
+      }
     }
   })],
 }
