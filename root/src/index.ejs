@@ -42,13 +42,15 @@
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script">
 
   <!-- Add your organization's prod import map URL to this script's src  -->
+  <% if (!isLocal) { %>
   <script type="systemjs-importmap" src="/private/importmap.json"></script>
+  <% } %>
 
   <% if (isLocal) { %>
   <script type="systemjs-importmap">
     {
       "imports": {
-        "@ringit/root-config": "//localhost:9000/ringit-root-config.js",
+        "@ringit/root-config": "//localhost:9000/private/ringit-root-config.js",
         "@ringit/app1": "//localhost:8088/ringit-app1.js",
         "@ringit/app2": "//localhost:8087/ringit-app2.js",
         "@ringit/header": "//localhost:8089/ringit-header.js",
@@ -57,7 +59,7 @@
     }
   </script>
 
-  <!-- For es module apps in development use native browser importmaps -Vova -->
+  <!-- For es module apps in development use native browser importmaps. Note that as of writing this, importmaps in FF are not supported, but will be soon -Vova -->
   <script type="importmap">
     {
       "imports": {
@@ -78,8 +80,8 @@
 
   <!-- TODO maybe we don't need system-amd support -Vova -->
   <% if (isLocal) { %>
-    <script src="/system.min.js"></script>
-    <script src="/system-amd.min.js"></script>
+    <script src="/private/system.min.js"></script>
+    <script src="/private/system-amd.min.js"></script>
   <% } else { %>
     <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.js"></script>

@@ -7,7 +7,7 @@ import {
 import microfrontendLayout from "./microfrontend-layout.html";
 
 const localEsApps = ['@ringit/vitya'];
-const useLocalEs = false; // todo use env or something
+const useLocalEs = true; // todo use env or something
 
 const routes = constructRoutes(microfrontendLayout);
 const applications = constructApplications({
