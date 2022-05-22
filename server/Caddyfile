@@ -1,0 +1,28 @@
+localhost {
+
+	# redir / /private/
+	# file_server browse
+
+ 	handle_path /private/app/header/* {
+ 		root * ./header
+ 		file_server
+ 	}
+	
+	handle_path /private/app/vitya/* {
+ 		root * ./vitya
+ 		file_server
+ 	}
+
+	 handle_path /private/* {
+	 	root * ./root
+	 	try_files {path} index.html
+	 	file_server
+	 }
+	
+
+	
+	handle {
+		respond "Not found" 404
+	}
+
+}

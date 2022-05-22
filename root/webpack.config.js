@@ -12,7 +12,7 @@ module.exports = (webpackConfigEnv, argv) => {
     disableHtmlGeneration: true,
   });
 
-  return merge(defaultConfig, {
+  let config = merge(defaultConfig, {
     // modify the webpack config however you'd like to by adding to this object
     plugins: [
       new HtmlWebpackPlugin({
@@ -24,5 +24,11 @@ module.exports = (webpackConfigEnv, argv) => {
         },
       }),
     ],
+    // Thanks to SystemJSPublicPathWebpackPlugin public path is set dynamically
+    // output: {
+    //   publicPath: 'private'
+    // }
   });
+  console.log(config)
+  return config;
 };

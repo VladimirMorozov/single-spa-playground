@@ -7,11 +7,11 @@ export default function Root(props) {
     <BrowserRouter>
     <p>Count: {window.mountCount}</p>
     <section>{props.name} is mounted!</section>
-    <Link to={"app1"}>app 1</Link>
+    <Link to={"private/app1"}>app 1</Link>
     <br />
-    <Link to={"app2"}>app 2</Link>
+    <Link to={"private/app2"}>app 2</Link>
     <br />
-    <Link to={"vitya"}>vitya</Link>
+    <Link to={"private/vitya"}>vitya</Link>
     </BrowserRouter>
   </>;
 }

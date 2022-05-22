@@ -16,18 +16,18 @@
   </route>
 
   -->
-  <span>Non-router nav: <a href="/app1"/>app 1</a>  <a href="/app2"/> app 2</a> <a href="/vitya"/> vitya</a> </span>
+  <span>Non-router nav: <a href="/private/app1"/>app 1</a>  <a href="/private/app2"/> app 2</a> <a href="/private/vitya"/> vitya</a> </span>
   <header>
     <application name="@ringit/header"></application>
   </header>
   <main>
-    <route path="app1">
+    <route path="/private/app1">
       <application name="@ringit/app1"></application>
     </route>
-    <route path="app2">
+    <route path="/private/app2">
       <application name="@ringit/app2"></application>
     </route>
-    <route path="vitya">
+    <route path="/private/vitya">
       <application name="@ringit/vitya"></application>
     </route>
   </main>

@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "@ringit/root-config": "/private/ringit-root-config.js",
+    "@ringit/app1": "//localhost:8088/ringit-app1.js",
+    "@ringit/app2": "//localhost:8087/ringit-app2.js",
+    "@ringit/header": "/private/app/header/ringit-header.js",
+    "@ringit/vitya": "/private/app/vitya/main.js"
+  }
+}
