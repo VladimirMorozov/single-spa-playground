@@ -3,7 +3,7 @@ import { Link, BrowserRouter } from "react-router-dom";
 export default function Root(props) {
   window.mountCount = window.mountCount || 0;
   window.mountCount++;
-  return <>
+  return <div style={{"backgroundColor": "#BBBBBB"}}>
     <BrowserRouter>
     <p>Count: {window.mountCount}</p>
     <section>{props.name} is mounted!</section>
@@ -13,5 +13,5 @@ export default function Root(props) {
     <br />
     <Link to={"private/vitya"}>vitya</Link>
     </BrowserRouter>
-  </>;
+  </div>;
 }

@@ -1,9 +1,16 @@
+const webpack = require('webpack');
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = (webpackConfigEnv, argv) => {
+  process.env.NODE_ENV = (webpackConfigEnv && webpackConfigEnv.node_env) || 'production';
+
+  const paths = require('./buildConfig/paths');
+  const getClientEnvironment = require('./buildConfig/env');
+  const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
+
   const orgName = "ringit";
   const defaultConfig = singleSpaDefaults({
     orgName,
@@ -23,10 +30,11 @@ module.exports = (webpackConfigEnv, argv) => {
         inject: false,
         template: "src/index.ejs",
         templateParameters: {
-          isLocal: webpackConfigEnv && webpackConfigEnv.isLocal,
+          isLocal: process.env.NODE_ENV === 'development',
           orgName,
         },
       }),
+      new webpack.DefinePlugin(env.stringified)
     ],
     // setting public path, inspired by ejected create-react-app
     output: {

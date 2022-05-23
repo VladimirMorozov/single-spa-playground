@@ -7,25 +7,26 @@ import {
 import microfrontendLayout from "./microfrontend-layout.html";
 
 const localEsApps = ['@ringit/vitya'];
-const useLocalEs = true; // todo use env or something
+const useLocalEs = process.env.NODE_ENV === 'development'; // some other special env var could be used
 
 const routes = constructRoutes(microfrontendLayout);
 const applications = constructApplications({
   routes,
   loadApp({ name }) {
     if (useLocalEs && localEsApps.includes(name)) {
-      
       return import(
         /* webpackIgnore: true */
         name
-      ).then(pp => pp.prom);
+      ).then(pp => pp.appPromise);
     } else {
       let pendingApp = System.import(name);
       return pendingApp.then(loadedApp => {
-        console.log(name, loadedApp, loadedApp.default ? loadedApp.default() : null)
-        if (loadedApp.prom) {
-          return loadedApp.prom;
+        if (loadedApp.appPromise) {
+          return loadedApp.appPromise;
+        } else if (loadedApp.mount) {
+          return loadedApp;
         } else {
+          console.error('Expected an app or a promise resolving to an app, but loaded: ', loadedApp);
           return loadedApp;
         }
       });

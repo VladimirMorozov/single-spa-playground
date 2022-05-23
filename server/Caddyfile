@@ -8,6 +8,11 @@ localhost {
  		file_server
  	}
 	
+	# for some reason asset urls always have /asset folder, while system.js output from vite does not
+ 	handle_path /private/app/vitya/assets/* {
+ 		root * ./vitya
+ 		file_server
+ 	}
 	handle_path /private/app/vitya/* {
  		root * ./vitya
  		file_server

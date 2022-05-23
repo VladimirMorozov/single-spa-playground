@@ -25,7 +25,7 @@ const vueLifecycles = singleSpaVue({
   }
 });
 
-export let prom = new Promise(r => setTimeout(() => { r(vueLifecycles) }, 5000));
+export let appPromise = new Promise(r => setTimeout(() => { r(vueLifecycles) }, 2000));
 
 //export const bootstrap = vueLifecycles.bootstrap;
 //export const mount = vueLifecycles.mount;

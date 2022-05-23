@@ -4340,14 +4340,14 @@ System.register([], function(exports) {
       };
       const _hoisted_1 = /* @__PURE__ */ createBaseVNode("img", {
         alt: "Vue logo",
-        src: "/src/assets/logo.png"
+        src: "/private/app/vitya/assets/logo.png"
       }, null, -1);
       function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         const _component_HelloWorld = resolveComponent("HelloWorld");
-        return openBlock(), createElementBlock(Fragment, null, [
+        return openBlock(), createElementBlock("div", null, [
           _hoisted_1,
           createVNode(_component_HelloWorld, { msg: "Hello Vue 3.0 + Vite" })
-        ], 64);
+        ]);
       }
       var App = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
       var e, n, t = typeof globalThis != "undefined" ? globalThis : typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : {};
@@ -4489,9 +4489,9 @@ System.register([], function(exports) {
         handleInstance: (app) => {
         }
       });
-      let prom = exports("prom", new Promise((r2) => setTimeout(() => {
+      let appPromise = exports("appPromise", new Promise((r2) => setTimeout(() => {
         r2(vueLifecycles);
-      }, 5e3)));
+      }, 2e3)));
     }
   };
 });

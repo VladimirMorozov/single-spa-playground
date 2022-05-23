@@ -17,7 +17,7 @@ export default {
   plugins: [vue({
     template: {
       transformAssetUrls: {
-        base: '/src'
+        base: '/private/app/vitya/' // changes things like <img src="***" />, worked only in prod build, not going to pursue in dev, since we aren't going to use vue anyway
       }
     }
   })],

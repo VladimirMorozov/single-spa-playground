@@ -23,7 +23,7 @@
   <!-- More info at https://github.com/joeldenning/import-map-overrides/blob/master/docs/configuration.md#domain-list -->
   <!-- <meta name="import-map-overrides-domains" content="denylist:prod.example.com" /> -->
 
-  <!-- It seems this can just be removed? this is not an external in projects anyway -Vova -->
+  <!-- ONLY IN PROD, get rid of CDN TODO -Vova -->
   <!-- Shared dependencies go into this import map. Your shared dependencies must be of one of the following formats:
 
     1. System.register (preferred when possible) - https://github.com/systemjs/systemjs/blob/master/docs/system-register.md
@@ -79,13 +79,8 @@
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@2.2.0/dist/import-map-overrides.js"></script>
 
   <!-- TODO maybe we don't need system-amd support -Vova -->
-  <% if (isLocal) { %>
-    <script src="/private/system.min.js"></script>
-    <script src="/private/system-amd.min.js"></script>
-  <% } else { %>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.js"></script>
-  <% } %>
+  <script src="/private/system.min.js"></script>
+  <script src="/private/system-amd.min.js"></script>
 
 </head>
 <body>
