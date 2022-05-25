@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const SystemJSPublicPathWebpackPlugin = require("systemjs-webpack-interop/SystemJSPublicPathWebpackPlugin");
 const path = require("path");
 
 module.exports = (webpackConfigEnv, argv) => {
@@ -20,7 +21,8 @@ module.exports = (webpackConfigEnv, argv) => {
     disableHtmlGeneration: true,
   });
 
-  defaultConfig.plugins.splice(1, 1); // remove SystemJSPublicPathWebpackPlugin, use static public path
+  defaultConfig.plugins = defaultConfig.plugins.filter(pl => !(pl instanceof SystemJSPublicPathWebpackPlugin)); // remove SystemJSPublicPathWebpackPlugin, use static public path
+  defaultConfig.externals = defaultConfig.externals.filter(ext => ext !== 'single-spa'); // remove single-spa from externals, we don't use CDNs
   console.log(defaultConfig.plugins)
 
   let config = merge(defaultConfig, {

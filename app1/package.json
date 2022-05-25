@@ -2,7 +2,7 @@
   "name": "@ringit/app1",
   "scripts": {
     "start": "webpack serve",
-    "start:standalone": "webpack serve --env standalone",
+    "start:standalone": "webpack serve --env standalone --port 8088",
     "build": "concurrently yarn:build:*",
     "build:webpack": "webpack --mode=production",
     "build-standalone": "webpack --mode=production --env standalone",
