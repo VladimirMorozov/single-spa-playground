@@ -3,6 +3,7 @@ const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const SystemJSPublicPathWebpackPlugin = require("systemjs-webpack-interop/SystemJSPublicPathWebpackPlugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const path = require("path");
 
 module.exports = (webpackConfigEnv, argv) => {
@@ -36,7 +37,15 @@ module.exports = (webpackConfigEnv, argv) => {
           orgName,
         },
       }),
-      new webpack.DefinePlugin(env.stringified)
+      new webpack.DefinePlugin(env.stringified),
+      new CopyPlugin({
+        patterns: [
+          'node_modules/systemjs/dist/system.min.js',
+          'node_modules/systemjs/dist/system.min.js.map',
+          { from: 'node_modules/systemjs/dist/extras/amd.min.js', to: path.resolve(__dirname, "dist/system-amd.min.js") },
+          'node_modules/systemjs/dist/extras/amd.min.js.map',
+          'static/regenerator-runtime.min.js' // we don't get it from node_modules since it's not minimized there
+      ]}),
     ],
     // setting public path, inspired by ejected create-react-app
     output: {
@@ -44,13 +53,14 @@ module.exports = (webpackConfigEnv, argv) => {
     },
     devServer: {
       static: {
-        directory: path.resolve(process.cwd(), "public"),
+        directory: path.resolve(process.cwd(), "dist"),
         publicPath: '/private/',
       },
       historyApiFallback: {
         disableDotRule: true,
         index: '/private/',
       },
+      devMiddleware: { writeToDisk: true } // make copies by CopyPlugin accessible during development 
     },
   });
   console.log(config)
