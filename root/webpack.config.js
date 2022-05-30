@@ -8,6 +8,7 @@ const path = require("path");
 
 module.exports = (webpackConfigEnv, argv) => {
   process.env.NODE_ENV = (webpackConfigEnv && webpackConfigEnv.node_env) || 'production';
+  const isEnvProduction = process.env.NODE_ENV === 'production';
 
   const paths = require('./buildConfig/paths');
   const getClientEnvironment = require('./buildConfig/env');
@@ -24,9 +25,15 @@ module.exports = (webpackConfigEnv, argv) => {
 
   defaultConfig.plugins = defaultConfig.plugins.filter(pl => !(pl instanceof SystemJSPublicPathWebpackPlugin)); // remove SystemJSPublicPathWebpackPlugin, use static public path
   defaultConfig.externals = defaultConfig.externals.filter(ext => ext !== 'single-spa'); // remove single-spa from externals, we don't use CDNs
-  console.log(defaultConfig.plugins)
+  console.log(defaultConfig)
 
   let config = merge(defaultConfig, {
+    resolve: {
+      alias: !isEnvProduction && { 
+        // source map is broken, this somewhat allows to debug, single-spa-layout doesn't have sources or source-map in npm package at all
+          "single-spa": path.resolve(__dirname, "node_modules/single-spa/lib/esm/single-spa.dev.js"), 
+      }
+    },
     // modify the webpack config however you'd like to by adding to this object
     plugins: [
       new HtmlWebpackPlugin({
